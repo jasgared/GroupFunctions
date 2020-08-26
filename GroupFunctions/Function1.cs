@@ -23,8 +23,15 @@ namespace GroupFunctions
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
+            // Two operators here
+            // 1. ?? --> null-coalescing operator --> op1 ?? op2
+            // Takes op1 value if its not-null
+            // else takes the op2 value.
+            // 2. ? --> implies that the name of data object can be null.
             name = name ?? data?.name;
 
+            // This is usual terinary operator
+            // Checking for name if null or not and printing message accordingly.
             string responseMessage = string.IsNullOrEmpty(name)
                 ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
                 : $"Hello, {name}. This HTTP triggered function executed successfully.";
