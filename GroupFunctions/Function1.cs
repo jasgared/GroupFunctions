@@ -7,6 +7,8 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
 
 namespace GroupFunctions
 {
@@ -35,7 +37,12 @@ namespace GroupFunctions
             string responseMessage = string.IsNullOrEmpty(name)
                 ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
                 : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
+            string data1 = "@{'number':'11'}";
+            //req.Body = data1;
+            HttpRequestMessage httpreq = new HttpRequestMessage();
+            httpreq.Content = new StringContent("{\"number\":\"11\"}", Encoding.UTF8, "application/json");
+            //var response = ConditionalFunction.Run(httpreq, log);
+            //Console.WriteLine(response);
             return new OkObjectResult(responseMessage);
         }
     }
